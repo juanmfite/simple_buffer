@@ -1,3 +1,6 @@
+from constants import PolicyCts
+
+__all__ = ['Buffer']
 
 
 class Buffer:
@@ -9,13 +12,13 @@ class Buffer:
 
     def __init__(self, policy):
         policy = policy.upper()
-        if policy not in ['FIFO', 'LIFO']:
+        if policy not in PolicyCts.ACCEPTED_POLICIES:
             raise ValueError()
         self._policy = policy
-        self.data_list = []
+        self._buffer = []
 
     def insert(self, item):
-        self.data_list.append(item)
+        self._buffer.append(item)
     
     def extract(self):
         try:
@@ -25,15 +28,15 @@ class Buffer:
         except IndexError:
             return
     
+    def show(self):
+        return self._buffer
+    
+    def size(self):
+        return len(self._buffer)
+    
     def _fifo_extract(self):
-        return self.data_list.pop()
+        return self._buffer.pop()
     
     def _lifo_extract(self):
-        return self.data_list.pop(0)
-    
+        return self._buffer.pop(0)
 
-# b = Buffer("LIFO")
-# b.insert(1)
-# b.insert(2)
-# b.insert(3)
-# b.extract()
