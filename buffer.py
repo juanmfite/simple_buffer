@@ -13,7 +13,7 @@ class Buffer:
     def __init__(self, policy):
         policy = policy.upper()
         if policy not in PolicyCts.ACCEPTED_POLICIES:
-            raise ValueError()
+            raise ValueError(f'Ingrese una politica valida: {PolicyCts.ACCEPTED_POLICIES}')
         self._policy = policy
         self._buffer = []
 
@@ -22,7 +22,7 @@ class Buffer:
     
     def extract(self):
         try:
-            if self._policy == 'FIFO':
+            if self._policy == PolicyCts.FIFO:
                 return self._fifo_extract()
             return self._lifo_extract()
         except IndexError:

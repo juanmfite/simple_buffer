@@ -37,3 +37,7 @@ class BufferTestCase(TestCase):
         self.fifo_buffer.extract()
         self.assertEqual(self.fifo_buffer.show(), [])
     
+    def test_wrong_policy(self):
+        with self.assertRaises(ValueError):
+            Buffer("WRONG")
+    
